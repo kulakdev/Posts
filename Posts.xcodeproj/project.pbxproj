@@ -11,6 +11,8 @@
 		AF70E8962AB1C6830066F8DC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF70E8952AB1C6830066F8DC /* ContentView.swift */; };
 		AF70E8982AB1C6840066F8DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF70E8972AB1C6840066F8DC /* Assets.xcassets */; };
 		AF70E89C2AB1C6840066F8DC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF70E89B2AB1C6840066F8DC /* Preview Assets.xcassets */; };
+		AF70E8A42AB1F35D0066F8DC /* TweetTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF70E8A32AB1F35D0066F8DC /* TweetTimeline.swift */; };
+		AF70E8A62AB1F3960066F8DC /* TweetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF70E8A52AB1F3960066F8DC /* TweetDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		AF70E8972AB1C6840066F8DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF70E8992AB1C6840066F8DC /* Posts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Posts.entitlements; sourceTree = "<group>"; };
 		AF70E89B2AB1C6840066F8DC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AF70E8A32AB1F35D0066F8DC /* TweetTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTimeline.swift; sourceTree = "<group>"; };
+		AF70E8A52AB1F3960066F8DC /* TweetDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 			children = (
 				AF70E8932AB1C6830066F8DC /* PostsApp.swift */,
 				AF70E8952AB1C6830066F8DC /* ContentView.swift */,
+				AF70E8A22AB1F3380066F8DC /* ComponentViews */,
 				AF70E8972AB1C6840066F8DC /* Assets.xcassets */,
 				AF70E8992AB1C6840066F8DC /* Posts.entitlements */,
 				AF70E89A2AB1C6840066F8DC /* Preview Content */,
@@ -67,6 +72,15 @@
 				AF70E89B2AB1C6840066F8DC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AF70E8A22AB1F3380066F8DC /* ComponentViews */ = {
+			isa = PBXGroup;
+			children = (
+				AF70E8A32AB1F35D0066F8DC /* TweetTimeline.swift */,
+				AF70E8A52AB1F3960066F8DC /* TweetDetails.swift */,
+			);
+			path = ComponentViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,8 +153,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF70E8A62AB1F3960066F8DC /* TweetDetails.swift in Sources */,
 				AF70E8962AB1C6830066F8DC /* ContentView.swift in Sources */,
 				AF70E8942AB1C6830066F8DC /* PostsApp.swift in Sources */,
+				AF70E8A42AB1F35D0066F8DC /* TweetTimeline.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
