@@ -30,8 +30,14 @@ struct TweetTimeline: View {
                     Spacer()
                     Image(systemName: "chevron.down")
                 }
+                // swiftlint:disable:next line_length
                 Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum rutrum sodales. Nullam mattis fermentum libero, non volutpat.")
                     .padding(.bottom, 1.0)
+                Image("samplePhoto")
+                    .resizable()
+                    .frame(width: 300, height: 150)
+                    .cornerRadius(10)
+                    .scaledToFit()
                 HStack(alignment: .center) {
                     HStack {
                         Image(systemName: "message")
@@ -52,6 +58,7 @@ struct TweetTimeline: View {
             }
             Spacer()
         }
+        .padding()
     }
 }
 
