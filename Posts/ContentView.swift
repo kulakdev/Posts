@@ -11,6 +11,7 @@ import Resolver
 struct ContentView: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var viewModel: LoginViewModel
+    @InjectedObject private var dbService: DatabaseService
     var body: some View {
         switch appStateManager.isLoggedIn {
         case .loggedIn:
@@ -18,6 +19,19 @@ struct ContentView: View {
                 VStack {
                     TweetDetails()
                     TweetTimeline()
+                    TextField("Enter your new tweet", text: $appStateManager.newTweetText)
+                    Button(
+                        action: {
+                            Task {
+                                dbService.makeNewPost()
+                            }
+                    }, label: {
+                        Text("Make a new post on the cloud")
+                            .padding()
+                            .foregroundColor(Color.white)
+                            .background(Color.blue)
+                        }
+                    )
                     Button(
                         action: {
                             Task {
