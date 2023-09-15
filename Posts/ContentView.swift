@@ -11,7 +11,7 @@ import Resolver
 struct ContentView: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var viewModel: LoginViewModel
-    @InjectedObject private var dbService: DatabaseService
+    @InjectedObject private var databaseViewModel: DatabaseViewModel
     var body: some View {
         switch appStateManager.isLoggedIn {
         case .loggedIn:
@@ -23,7 +23,7 @@ struct ContentView: View {
                     Button(
                         action: {
                             Task {
-                                dbService.makeNewPost()
+                                await databaseViewModel.makeNewPost()
                             }
                     }, label: {
                         Text("Make a new post on the cloud")
@@ -50,6 +50,8 @@ struct ContentView: View {
                     UIApplication.shared.isIdleTimerDisabled = true
                 }
             }
+        case .didNotProvideDetails:
+            Text("damn daniel")
         case .notLoggedIn:
             ScrollView {
                 TextField("enter your email", text: $viewModel.email)

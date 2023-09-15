@@ -41,43 +41,30 @@ extension Encodable {
 class DatabaseService: ObservableObject {
     @InjectedObject private var viewModel: LoginViewModel
     @InjectedObject private var appStateManager: AppStateManager
+    @InjectedObject private var authService: AuthService
     var dbref: DatabaseReference
 
     init() {
         dbref = Database.database().reference()
     }
 
-    func makeNewPost() {
-        // Create a new post using struct with memberwise initializer
-        let newPost = PostData(
-            authorHandle: "@beebon_busk",
-            authorName: "Beebon Busk",
-            authorVerified: true,
-            datePosted: DateFormatter().string(from: Date()),
-            // swiftlint:disable:next line_length
-            media: "https://plus.unsplash.com/premium_photo-1693881702158-092b00136f76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80",
-            peopleLiked: [:
-                         ],
-            publicMetrics: PublicMetrics(
-                likeCount: 0,
-                replyCount: 0,
-                retweetCount: 0
-            ),
-            text: "\(appStateManager.newTweetText)"
-        )
+    func checkDBForUser(uid: String) {
+        self.dbref.child("profiles").child(authService.currentUser.uid).getData { error, _ in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                return
+            }
+            print("profile found")
+        }
+    }
 
+    func makeNewPost(newPost: PostData) async throws {
         // Convert the struct to a dictionary using your extension
         if let postDataDict = newPost.toDictionary {
             // Save the data to Firebase
             let postsRef = dbref.child("posts")
             let newPostRef = postsRef.childByAutoId()
-            newPostRef.setValue(postDataDict) { (error, _) in
-                if let error = error {
-                    print("Error posting data: \(error.localizedDescription)")
-                } else {
-                    print("Data posted successfully!")
-                }
-            }
+            try await newPostRef.setValue(postDataDict)
         }
     }
 }

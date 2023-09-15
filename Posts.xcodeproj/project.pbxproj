@@ -27,6 +27,7 @@
 		AFFFE6D82AB2FF7A00B4AB43 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */; };
 		AFFFE6DB2AB2FFF500B4AB43 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6DA2AB2FFF500B4AB43 /* UserModel.swift */; };
 		AFFFE6E22AB308EC00B4AB43 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */; };
+		AFFFE6E42AB4562600B4AB43 /* DatabaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
 		AFFFE6DA2AB2FFF500B4AB43 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */,
 				AFFFE6D22AB2FF2D00B4AB43 /* AppDelegate+Injection.swift */,
+				AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */,
 				AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */,
 				AFFFE6D42AB2FF4D00B4AB43 /* AuthService.swift */,
 				AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */,
@@ -260,6 +263,7 @@
 				AF70E8A62AB1F3960066F8DC /* TweetDetails.swift in Sources */,
 				AF70E8962AB1C6830066F8DC /* ContentView.swift in Sources */,
 				AFFFE6CE2AB2FEAE00B4AB43 /* LoginViewModel.swift in Sources */,
+				AFFFE6E42AB4562600B4AB43 /* DatabaseViewModel.swift in Sources */,
 				AFFFE6D32AB2FF2D00B4AB43 /* AppDelegate+Injection.swift in Sources */,
 				AF70E8942AB1C6830066F8DC /* PostsApp.swift in Sources */,
 				AF70E8A42AB1F35D0066F8DC /* TweetTimeline.swift in Sources */,
