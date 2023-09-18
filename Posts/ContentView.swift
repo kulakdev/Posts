@@ -20,6 +20,7 @@ struct ContentView: View {
 //                    TweetDetails()
                     if appStateManager.userData != nil {
                         let userdata = appStateManager.userData!
+                        
                         Text("\(userdata.username)")
                         Text("\(userdata.handle)")
                         Text("\(userdata.bgLink)")
@@ -68,6 +69,9 @@ struct ContentView: View {
                 .padding()
                 .onAppear {
                     UIApplication.shared.isIdleTimerDisabled = true
+                    Task {
+                        await databaseViewModel.checkDBForUser()
+                    }
                 }
             }
         case .didNotProvideDetails:

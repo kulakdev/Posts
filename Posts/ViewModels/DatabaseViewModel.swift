@@ -15,9 +15,9 @@ class DatabaseViewModel: ObservableObject {
     @InjectedObject private var loginViewModel: LoginViewModel
 
     lazy var newPost = PostData(
-        authorHandle: "@beebon_busk",
-        authorName: "Beebon Busk",
-        authorVerified: true,
+        authorHandle: "\(appStateManager.userData?.handle ?? "Handle not initialized")",
+        authorName: "\(appStateManager.userData?.username ?? "Username not initialized")",
+        authorVerified: appStateManager.userData?.verified ?? false,
         datePosted: "\(appStateManager.formattedCurrentDate)",
         // swiftlint:disable:next line_length
         media: "https://plus.unsplash.com/premium_photo-1693881702158-092b00136f76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80",
