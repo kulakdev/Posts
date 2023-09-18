@@ -20,7 +20,7 @@ struct ContentView: View {
 //                    TweetDetails()
                     if appStateManager.userData != nil {
                         let userdata = appStateManager.userData!
-                        
+                        TweetBio(userData: userdata)
                         Text("\(userdata.username)")
                         Text("\(userdata.handle)")
                         Text("\(userdata.bgLink)")
