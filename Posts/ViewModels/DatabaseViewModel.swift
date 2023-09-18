@@ -40,4 +40,16 @@ class DatabaseViewModel: ObservableObject {
             loginViewModel.self.errorMessage = error.localizedDescription
         }
     }
+
+    func checkDBForUser() async {
+        let uid = loginViewModel.authService.currentUser.uid
+        print(uid)
+        do {
+            print("this executes")
+            appStateManager.userData = try await databaseService.checkDBForUser(uid: uid)
+            return
+        } catch {
+            print(error)
+        }
+    }
 }

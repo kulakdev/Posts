@@ -25,6 +25,7 @@ struct PostData: Encodable {
 struct UserData: Codable {
     let username: String
     let handle: String
+    let verified: Bool
     let pfpLink: String
     let bgLink: String
 }
@@ -48,14 +49,23 @@ class DatabaseService: ObservableObject {
         dbref = Database.database().reference()
     }
 
-    func checkDBForUser(uid: String) {
-        self.dbref.child("profiles").child(authService.currentUser.uid).getData { error, _ in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
+    func checkDBForUser(uid: String) async throws -> UserData? {
+        let snapshot = try await self.dbref.child("profiles").child(uid).getData()
+
+        if snapshot.value != nil {
+            print("snapshot exists")
+            if let value = snapshot.value as? [String: Any] {
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: value)
+                    let userData = try JSONDecoder().decode(UserData.self, from: jsonData)
+                    return userData
+                } catch {
+                    throw error
+                }
             }
-            print("profile found")
         }
+
+        return nil
     }
 
     func makeNewPost(newPost: PostData) async throws {

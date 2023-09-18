@@ -4,6 +4,7 @@ class AppStateManager: ObservableObject {
     @Published var isLoggedIn: Page = .notLoggedIn
     @Published var newTweetText: String = ""
     @Published var newTweetMedia: String = ""
+    @Published var userData: UserData?
 
     var formattedCurrentDate: String {
             let dateFormatter = DateFormatter()

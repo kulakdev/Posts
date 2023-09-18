@@ -129,12 +129,12 @@
 		AFFFE6CC2AB2FE9800B4AB43 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */,
 				AFFFE6D22AB2FF2D00B4AB43 /* AppDelegate+Injection.swift */,
-				AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */,
 				AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */,
 				AFFFE6D42AB2FF4D00B4AB43 /* AuthService.swift */,
+				AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */,
 				AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */,
+				AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";

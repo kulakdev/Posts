@@ -17,8 +17,16 @@ struct ContentView: View {
         case .loggedIn:
             ScrollView {
                 VStack {
-                    TweetDetails()
-                    TweetTimeline()
+//                    TweetDetails()
+                    if appStateManager.userData != nil {
+                        let userdata = appStateManager.userData!
+                        Text("\(userdata.username)")
+                        Text("\(userdata.handle)")
+                        Text("\(userdata.bgLink)")
+                    } else if appStateManager.userData == nil {
+                        Text("User data is nil")
+                    }
+//                    TweetTimeline()
                     TextField("Enter your new tweet", text: $appStateManager.newTweetText)
                     Button(
                         action: {
@@ -30,6 +38,18 @@ struct ContentView: View {
                             .padding()
                             .foregroundColor(Color.white)
                             .background(Color.blue)
+                        }
+                    )
+                    Button(
+                        action: {
+                            Task {
+                                await databaseViewModel.checkDBForUser()
+                            }
+                    }, label: {
+                        Text("check the database")
+                            .foregroundColor(Color.white)
+                            .background(Color.red)
+                            .padding()
                         }
                     )
                     Button(
