@@ -16,10 +16,15 @@ struct ContentView: View {
         switch appStateManager.isLoggedIn {
         case .loggedIn:
             ScrollView {
-                VStack {
+                VStack(alignment: .leading, spacing: 0) {
 //                    TweetDetails()
                     if appStateManager.userData != nil {
                         let userdata = appStateManager.userData!
+                        Text("Profile screen")
+                            .padding(5.0)
+                            .font(.caption)
+                            .background(.red)
+                            .foregroundColor(.white)
                         TweetBio(userData: userdata)
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")

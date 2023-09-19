@@ -62,7 +62,7 @@ struct TweetBio: View {
                     }
                     Spacer()
                     Button {
-                                            
+
                     } label: {
                         Text("Edit Profile")
                             .foregroundColor(.black)
@@ -77,7 +77,7 @@ struct TweetBio: View {
                     }
 
                 }
-                
+
                 Text("This is a text for bio. I should probably add it to the database too in the future")
                     .padding(.vertical, 6.0)
                 HStack {
