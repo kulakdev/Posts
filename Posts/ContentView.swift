@@ -6,138 +6,97 @@
 //
 
 import SwiftUI
+import Resolver
 
 struct ContentView: View {
+    @InjectedObject private var appStateManager: AppStateManager
+    @InjectedObject private var viewModel: LoginViewModel
+    @InjectedObject private var databaseViewModel: DatabaseViewModel
     var body: some View {
-        VStack {
-            VStack {
-                HStack {
-                    Image(systemName: "figure.fall.circle")
-                        .resizable()
-                        .frame(width: 42, height: 42)
-                        .foregroundColor(Color.teal)
-                        .background(Color.white)
-                        .clipShape(Circle())
-                    VStack(alignment: .leading) {
-                        Text("Beebon Busk")
-                            .font(.callout)
-                        Text("@beebonbusk")
-                            .font(.footnote)
-                            .multilineTextAlignment(.leading)
-                            .autocapitalization(.none)
-                            .fontWeight(.light)
+        switch appStateManager.isLoggedIn {
+        case .loggedIn:
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+//                    TweetDetails()
+                    if appStateManager.userData != nil {
+                        let userdata = appStateManager.userData!
+                        Text("Profile screen")
+                            .padding(5.0)
+                            .font(.caption)
+                            .background(.red)
+                            .foregroundColor(.white)
+                        TweetBio(userData: userdata)
+                    } else if appStateManager.userData == nil {
+                        Text("User data is nil")
                     }
-                    Spacer()
-                    Button(action: {
-                        print("text")
+//                    TweetTimeline()
+                    TextField("Enter your new tweet", text: $appStateManager.newTweetText)
+                    Button(
+                        action: {
+                            Task {
+                                await databaseViewModel.makeNewPost()
+                            }
                     }, label: {
-                        Text("Following")
-                            .font(.footnote)
-                            .padding(8)
-                            .background(Color.teal)
+                        Text("Make a new post on the cloud")
+                            .padding()
                             .foregroundColor(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 10.0))
-                            
-                    })
+                            .background(Color.blue)
+                        }
+                    )
+                    Button(
+                        action: {
+                            Task {
+                                await databaseViewModel.checkDBForUser()
+                            }
+                    }, label: {
+                        Text("check the database")
+                            .foregroundColor(Color.white)
+                            .background(Color.red)
+                            .padding()
+                        }
+                    )
+                    Button(
+                        action: {
+                            Task {
+                                await viewModel.signOut()
+                            }
+                    }, label: {
+                        Text("Sign Out")
+                            .foregroundColor(Color.white)
+                            .background(Color.blue)
+                            .padding()
+                        }
+                    )
                 }
-                .background(Color.white)
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum rutrum sodales. Nullam mattis fermentum libero, non volutpat.")
-                    .padding(5)
-                HStack(alignment: .center) {
-                    Group {
-                        Image(systemName: "arrowshape.turn.up.left.fill")
-                        Image(systemName: "arrow.2.squarepath")
-                        Image(systemName: "star.fill")
-                        Image(systemName: "ellipsis")
+                .padding()
+                .onAppear {
+                    UIApplication.shared.isIdleTimerDisabled = true
+                    Task {
+                        await databaseViewModel.checkDBForUser()
                     }
-                    .frame(width: 40)
-                    .foregroundColor(Color(red: 0.8049693943, green: 0.8049693943, blue: 0.8049693943))
-                    .padding(2)
-                    Spacer()
                 }
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Retweets")
-                            .font(.footnote)
-                        Text("439")
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Favorites")
-                            .font(.footnote)
-                        Text("50")
-                    }
-                    Image(systemName: "person.circle.fill")
-                    Image(systemName: "person.circle.fill")
-                    Image(systemName: "person.circle.fill")
-                    Image(systemName: "person.circle.fill")
-                    Image(systemName: "person.circle.fill")
-                    Spacer()
-                }
-                .padding(2)
-                HStack {
-                    Text("6:32 PM")
-                    Text("-")
-                    Text("5 Nov 2014")
-                    Spacer()
-                }
-                .padding(.vertical, 5.0)
-                .font(.caption2)
-//                Spacer()
             }
-                .frame(width: 350)
-            
-            Rectangle()
-                .frame(width: 2000.0, height: 3.0)
-            
-            HStack(alignment: .top) {
-                Image(systemName: "figure.fall.circle")
-                    .resizable()
-                    .frame(width: 42, height: 42)
-                    .foregroundColor(Color.teal)
-                    .background(Color.white)
-                    .clipShape(Circle())
-                VStack(alignment: .leading) {
-                    HStack(spacing: 0) {
-                        Text("Beebon Busk")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                        Image(systemName: "checkmark.circle.fill")
-                            .resizable()
-                            .frame(width: 12, height: 12)
-                            .padding(3.0)
-                        Text("@beeebon_busk • Mar 6")
-                            .font(.footnote)
-                        Spacer()
-                        Image(systemName: "chevron.down")
-                    }
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum rutrum sodales. Nullam mattis fermentum libero, non volutpat.")
-                        .padding(.bottom, 1.0)
-                    HStack(alignment: .center) {
-                        HStack {
-                            Image(systemName: "message")
-                            Text("12345")
+        case .didNotProvideDetails:
+            Text("damn daniel")
+        case .notLoggedIn:
+            ScrollView {
+                TextField("enter your email", text: $viewModel.email)
+                SecureField("enter your email", text: $viewModel.password)
+                Button(
+                    action: {
+                        Task {
+                            await viewModel.signIn()
                         }
-                        HStack {
-                            Image(systemName: "arrow.2.squarepath")
-                            Text("12345")
-                        }
-                        HStack {
-                            Image(systemName: "heart")
-                            Text("12345")
-                        }
-                        Spacer()
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .font(.subheadline)
+                }, label: {
+                    Text("Sign In")
+                        .foregroundColor(Color.white)
+                        .background(Color.blue)
                 }
-                Spacer()
+                )
             }
-            .frame(width: 350)
+            .padding()
         }
-        .padding()
-        .onAppear {
-            UIApplication.shared.isIdleTimerDisabled = true
-        }
+
     }
 }
 

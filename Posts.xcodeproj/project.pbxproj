@@ -20,6 +20,16 @@
 		AF70E8B32AB2DEA00066F8DC /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = AF70E8B22AB2DEA00066F8DC /* FirebaseDatabase */; };
 		AF70E8B52AB2DEA00066F8DC /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AF70E8B42AB2DEA00066F8DC /* FirebaseDatabaseSwift */; };
 		AFFFE6CB2AB2F71A00B4AB43 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6CA2AB2F71A00B4AB43 /* AuthenticationView.swift */; };
+		AFFFE6CE2AB2FEAE00B4AB43 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */; };
+		AFFFE6D12AB2FEEA00B4AB43 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = AFFFE6D02AB2FEEA00B4AB43 /* Resolver */; };
+		AFFFE6D32AB2FF2D00B4AB43 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6D22AB2FF2D00B4AB43 /* AppDelegate+Injection.swift */; };
+		AFFFE6D52AB2FF4D00B4AB43 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6D42AB2FF4D00B4AB43 /* AuthService.swift */; };
+		AFFFE6D82AB2FF7A00B4AB43 /* AppStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */; };
+		AFFFE6DB2AB2FFF500B4AB43 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6DA2AB2FFF500B4AB43 /* UserModel.swift */; };
+		AFFFE6E22AB308EC00B4AB43 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */; };
+		AFFFE6E42AB4562600B4AB43 /* DatabaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */; };
+		AFFFE6E62AB86BF700B4AB43 /* TweetBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6E52AB86BF700B4AB43 /* TweetBio.swift */; };
+		AFFFE6E92AB87AC500B4AB43 /* PlaceholderImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6E82AB87AC500B4AB43 /* PlaceholderImageLoading.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +43,16 @@
 		AF70E8A52AB1F3960066F8DC /* TweetDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDetails.swift; sourceTree = "<group>"; };
 		AF70E8A92AB2DCB70066F8DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFFFE6CA2AB2F71A00B4AB43 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		AFFFE6D22AB2FF2D00B4AB43 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
+		AFFFE6D42AB2FF4D00B4AB43 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateManager.swift; sourceTree = "<group>"; };
+		AFFFE6DA2AB2FFF500B4AB43 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseViewModel.swift; sourceTree = "<group>"; };
+		AFFFE6E52AB86BF700B4AB43 /* TweetBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetBio.swift; sourceTree = "<group>"; };
+		AFFFE6E72AB86DCE00B4AB43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AFFFE6E82AB87AC500B4AB43 /* PlaceholderImageLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageLoading.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFFFE6D12AB2FEEA00B4AB43 /* Resolver in Frameworks */,
 				AF70E8B52AB2DEA00066F8DC /* FirebaseDatabaseSwift in Frameworks */,
 				AF70E8AF2AB2DEA00066F8DC /* FirebaseAnalyticsSwift in Frameworks */,
 				AF70E8B12AB2DEA00066F8DC /* FirebaseAuth in Frameworks */,
@@ -56,6 +77,7 @@
 			children = (
 				AF70E8922AB1C6830066F8DC /* Posts */,
 				AF70E8912AB1C6830066F8DC /* Products */,
+				AFFFE6DC2AB308C700B4AB43 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,7 +92,10 @@
 		AF70E8922AB1C6830066F8DC /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				AFFFE6E72AB86DCE00B4AB43 /* Info.plist */,
 				AF70E8932AB1C6830066F8DC /* PostsApp.swift */,
+				AFFFE6D92AB2FFEA00B4AB43 /* Models */,
+				AFFFE6CC2AB2FE9800B4AB43 /* ViewModels */,
 				AFFFE6C92AB2F70C00B4AB43 /* Auth */,
 				AF70E8952AB1C6830066F8DC /* ContentView.swift */,
 				AF70E8A22AB1F3380066F8DC /* ComponentViews */,
@@ -95,6 +120,8 @@
 			children = (
 				AF70E8A32AB1F35D0066F8DC /* TweetTimeline.swift */,
 				AF70E8A52AB1F3960066F8DC /* TweetDetails.swift */,
+				AFFFE6E52AB86BF700B4AB43 /* TweetBio.swift */,
+				AFFFE6E82AB87AC500B4AB43 /* PlaceholderImageLoading.swift */,
 			);
 			path = ComponentViews;
 			sourceTree = "<group>";
@@ -105,6 +132,34 @@
 				AFFFE6CA2AB2F71A00B4AB43 /* AuthenticationView.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		AFFFE6CC2AB2FE9800B4AB43 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AFFFE6D22AB2FF2D00B4AB43 /* AppDelegate+Injection.swift */,
+				AFFFE6D72AB2FF7A00B4AB43 /* AppStateManager.swift */,
+				AFFFE6D42AB2FF4D00B4AB43 /* AuthService.swift */,
+				AFFFE6E32AB4562600B4AB43 /* DatabaseViewModel.swift */,
+				AFFFE6E12AB308EC00B4AB43 /* DatabaseService.swift */,
+				AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AFFFE6D92AB2FFEA00B4AB43 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AFFFE6DA2AB2FFF500B4AB43 /* UserModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AFFFE6DC2AB308C700B4AB43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,6 +185,7 @@
 				AF70E8B02AB2DEA00066F8DC /* FirebaseAuth */,
 				AF70E8B22AB2DEA00066F8DC /* FirebaseDatabase */,
 				AF70E8B42AB2DEA00066F8DC /* FirebaseDatabaseSwift */,
+				AFFFE6D02AB2FEEA00B4AB43 /* Resolver */,
 			);
 			productName = Posts;
 			productReference = AF70E8902AB1C6830066F8DC /* Posts.app */;
@@ -161,6 +217,7 @@
 			mainGroup = AF70E8872AB1C6830066F8DC;
 			packageReferences = (
 				AF70E8AB2AB2DEA00066F8DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AFFFE6CF2AB2FEEA00B4AB43 /* XCRemoteSwiftPackageReference "Resolver" */,
 			);
 			productRefGroup = AF70E8912AB1C6830066F8DC /* Products */;
 			projectDirPath = "";
@@ -213,9 +270,18 @@
 			files = (
 				AF70E8A62AB1F3960066F8DC /* TweetDetails.swift in Sources */,
 				AF70E8962AB1C6830066F8DC /* ContentView.swift in Sources */,
+				AFFFE6CE2AB2FEAE00B4AB43 /* LoginViewModel.swift in Sources */,
+				AFFFE6E62AB86BF700B4AB43 /* TweetBio.swift in Sources */,
+				AFFFE6E42AB4562600B4AB43 /* DatabaseViewModel.swift in Sources */,
+				AFFFE6D32AB2FF2D00B4AB43 /* AppDelegate+Injection.swift in Sources */,
 				AF70E8942AB1C6830066F8DC /* PostsApp.swift in Sources */,
 				AF70E8A42AB1F35D0066F8DC /* TweetTimeline.swift in Sources */,
+				AFFFE6E92AB87AC500B4AB43 /* PlaceholderImageLoading.swift in Sources */,
 				AFFFE6CB2AB2F71A00B4AB43 /* AuthenticationView.swift in Sources */,
+				AFFFE6D82AB2FF7A00B4AB43 /* AppStateManager.swift in Sources */,
+				AFFFE6DB2AB2FFF500B4AB43 /* UserModel.swift in Sources */,
+				AFFFE6D52AB2FF4D00B4AB43 /* AuthService.swift in Sources */,
+				AFFFE6E22AB308EC00B4AB43 /* DatabaseService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +410,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Posts/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -382,6 +449,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Posts/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -439,6 +507,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		AFFFE6CF2AB2FEEA00B4AB43 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -466,6 +542,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AF70E8AB2AB2DEA00066F8DC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabaseSwift;
+		};
+		AFFFE6D02AB2FEEA00B4AB43 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFFFE6CF2AB2FEEA00B4AB43 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
