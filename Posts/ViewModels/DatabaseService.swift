@@ -28,6 +28,14 @@ struct UserData: Codable {
     let verified: Bool
     let pfpLink: String
     let bgLink: String
+
+    init(from dictionary: [String: Any]) {
+            self.username = dictionary["username"] as? String ?? ""
+            self.handle = dictionary["handle"] as? String ?? ""
+            self.verified = dictionary["verified"] as? Bool ?? false
+            self.pfpLink = dictionary["pfpLink"] as? String ?? ""
+            self.bgLink = dictionary["bgLink"] as? String ?? ""
+        }
 }
 
 extension Encodable {

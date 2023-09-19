@@ -9,13 +9,19 @@ import SwiftUI
 
 struct PlaceholderImageLoading: View {
     @State var isRotating = 0.0
+    var type: LoadingType = .background
+
+    enum LoadingType {
+        case background
+        case profilePic
+    }
 
     var body: some View {
         VStack {
-            Image(systemName: "gear")
+            Image(systemName: type == .profilePic ? "person" : "gear")
                 .font(.system(size: 48))
                 .foregroundColor(.white)
-                .padding()
+//                .padding()
                 .rotationEffect(.degrees(isRotating))
                 .onAppear {
                     withAnimation(.linear(duration: 1)
@@ -32,5 +38,6 @@ struct PlaceholderImageLoading: View {
 struct PlaceholderImageLoading_Previews: PreviewProvider {
     static var previews: some View {
         PlaceholderImageLoading()
+            .aspectRatio(CGSize(width: 3, height: 1), contentMode: .fill)
     }
 }

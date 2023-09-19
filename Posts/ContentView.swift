@@ -21,9 +21,6 @@ struct ContentView: View {
                     if appStateManager.userData != nil {
                         let userdata = appStateManager.userData!
                         TweetBio(userData: userdata)
-                        Text("\(userdata.username)")
-                        Text("\(userdata.handle)")
-                        Text("\(userdata.bgLink)")
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")
                     }
