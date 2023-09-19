@@ -10,7 +10,7 @@ import SwiftUI
 struct TweetBio: View {
     let userData: UserData
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topLeading) {
             VStack {
                 AsyncImage(
                     url: URL(string: userData.bgLink),
@@ -46,28 +46,62 @@ struct TweetBio: View {
                     .aspectRatio(CGSize(width: 1, height: 1), contentMode: .fill)
                     .frame(width: 100, height: 100)
                     .clipShape(Circle())
-                    .padding(.top, 150.0)
+                    .padding(.top, 70.0)
                     Spacer()
                 }
                 HStack {
-                    Text("\(userData.username)")
-                        .font(.body)
-                        .bold()
-                    Image(systemName: "checkmark.seal.fill")
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("\(userData.username)")
+                                .font(.body)
+                                .bold()
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundColor(Color.teal.opacity(60))
+                        }
+                        Text("\(userData.handle)")
+                    }
                     Spacer()
+                    Button {
+                                            
+                    } label: {
+                        Text("Edit Profile")
+                            .foregroundColor(.black)
+                            .font(.body)
+                            .bold()
+                            .padding(10.0)
+                            .cornerRadius(90)
+                            .overlay(
+                            RoundedRectangle(cornerRadius: 90)
+                                .stroke(.black, lineWidth: 1)
+                            )
+                    }
+
                 }
-                Text("\(userData.handle)")
+                
                 Text("This is a text for bio. I should probably add it to the database too in the future")
+                    .padding(.vertical, 6.0)
                 HStack {
-                    Image(systemName: "mappin")
+                    Image("location").resizable()
+                        .frame(width: 20, height: 20)
                     Text("Location")
                     Image(systemName: "link")
                     Text("website.com")
-                        .foregroundColor(.blue)
+                        .foregroundColor(.teal)
                 }
+                HStack {
+                Image(systemName: "calendar")
+                Text("Joined November 2023")
+                }
+                HStack {
+                    Text("117").bold()
+                    Text("Following")
+                    Text("1.9M").bold()
+                    Text("Followers")
+                }.padding(.vertical)
             }
             .zIndex(2.0)
         }
+        .border(.red)
     }
 }
 
