@@ -29,6 +29,10 @@ struct ContentView: View {
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")
                     }
+                    ForEach(databaseViewModel.posts, id: \.self) { post in
+                        Text("Text: \"\(post.text)\"")
+                        Text("\(post.publicMetrics.likeCount) Liked")
+                    }
 //                    TweetTimeline()
                     TextField("Enter your new tweet", text: $appStateManager.newTweetText)
                     Button(
@@ -46,7 +50,7 @@ struct ContentView: View {
                     Button(
                         action: {
                             Task {
-                                await databaseViewModel.checkDBForUser()
+                                await databaseViewModel.checkForUser()
                             }
                     }, label: {
                         Text("check the database")
@@ -69,11 +73,14 @@ struct ContentView: View {
                     )
                 }
                 .padding()
+                .task {
+                    await databaseViewModel.checkForUser()
+                    databaseViewModel.observePosts()
+                }
                 .onAppear {
+                    #if DEBUG
                     UIApplication.shared.isIdleTimerDisabled = true
-                    Task {
-                        await databaseViewModel.checkDBForUser()
-                    }
+                    #endif
                 }
             }
         case .didNotProvideDetails:
