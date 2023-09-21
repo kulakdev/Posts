@@ -8,48 +8,112 @@
 import SwiftUI
 
 struct TweetTimeline: View {
+    let postData: FetchedPostData
+    func formattedTime(time: String) -> String {
+        print(time)
+        let formatter = ISO8601DateFormatter()
+        let convertedTime = formatter.date(from: time)
+        let difference = convertedTime?.timeIntervalSinceNow
+        let absSeconds = abs(difference ?? -503667.3709640503)
+
+            if absSeconds < 60 {
+                return "\(Int(absSeconds)) seconds ago"
+            } else if absSeconds < 3600 {
+                let minutes = Int(absSeconds / 60)
+                return "\(minutes) minute\(minutes == 1 ? "" : "s") ago"
+            } else if absSeconds < 86400 {
+                let hours = Int(absSeconds / 3600)
+                return "\(hours) hour\(hours == 1 ? "" : "s") ago"
+            } else if absSeconds < 604800 {
+                let days = Int(absSeconds / 86400)
+                return "\(days) day\(days == 1 ? "" : "s") ago"
+            } else if absSeconds < 2419200 {
+                let weeks = Int(absSeconds / 604800)
+                return "\(weeks) week\(weeks == 1 ? "" : "s") ago"
+            } else if absSeconds < 29030400 {
+                let months = Int(absSeconds / 2419200)
+                return "\(months) month\(months == 1 ? "" : "s") ago"
+            } else {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MM.dd.yyyy"
+                let dateString = formatter.string(from: Date())
+                return dateString
+            }
+
+    }
     var body: some View {
         HStack(alignment: .top) {
-            Image(systemName: "figure.fall.circle")
-                .resizable()
-                .frame(width: 42, height: 42)
-                .foregroundColor(Color.teal)
-                .background(Color.white)
-                .clipShape(Circle())
+            AsyncImage(
+                url: URL(string: postData.pfpLink),
+                content: { phase in
+                    if let image = phase.image {
+                        image.resizable()
+                            .scaledToFill()
+                    } else if phase.error != nil {
+                        Color.red
+                    } else {
+                        PlaceholderImageLoading(type: .profilePic)
+                    }
+                }
+            )
+            .aspectRatio(CGSize(width: 1, height: 1), contentMode: .fill)
+            .frame(width: 42, height: 42)
+            .clipShape(Circle())
             VStack(alignment: .leading) {
-                HStack(spacing: 0) {
-                    Text("Beebon Busk")
-                        .font(.subheadline)
-                        .fontWeight(.bold)
-                    Image(systemName: "checkmark.circle.fill")
-                        .resizable()
-                        .frame(width: 12, height: 12)
-                        .padding(3.0)
-                    Text("@beeebon_busk • Mar 6")
-                        .font(.footnote)
+                HStack {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack(spacing: 0) {
+                            Text(postData.authorName)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                            Image(systemName: "checkmark.circle.fill")
+                                .resizable()
+                                .frame(width: 12, height: 12)
+                                .padding(.horizontal, 3.0)
+
+                        }
+                        Text("\(postData.authorHandle) • \(formattedTime(time: postData.datePosted))")
+                            .font(.footnote)
+                    }
+                    .padding(.bottom, 2.0)
                     Spacer()
                     Image(systemName: "chevron.down")
                 }
-                // swiftlint:disable:next line_length
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum rutrum sodales. Nullam mattis fermentum libero, non volutpat.")
+                Text("\(postData.text)")
                     .padding(.bottom, 1.0)
-                Image("samplePhoto")
-                    .resizable()
-                    .frame(width: 300, height: 150)
-                    .cornerRadius(10)
-                    .scaledToFit()
+                if postData.media?.isEmpty == false {
+                    AsyncImage(url: URL(string: postData.media ?? ""),
+                               content: { phase in
+                        if let image = phase.image {
+                            image.resizable()
+                                .scaledToFill()
+                        } else if phase.error != nil {
+                            Color.red
+                        } else {
+                            PlaceholderImageLoading()
+                        }
+                    })
+                        .frame(width: 300, height: 150)
+                        .cornerRadius(10)
+                }
                 HStack(alignment: .center) {
                     HStack {
                         Image(systemName: "message")
-                        Text("12345")
+                        Text("\(postData.publicMetrics.replyCount)")
                     }
+                    Spacer()
                     HStack {
                         Image(systemName: "arrow.2.squarepath")
-                        Text("12345")
+                        Text("\(postData.publicMetrics.retweetCount)")
                     }
+                    Spacer()
                     HStack {
-                        Image(systemName: "heart")
-                        Text("12345")
+                        Button {
+                            formattedTime(time: postData.datePosted)
+                        } label: {
+                            Image(systemName: "heart")
+                            Text("\(postData.publicMetrics.likeCount)")
+                        }
                     }
                     Spacer()
                     Image(systemName: "square.and.arrow.up")
@@ -58,12 +122,12 @@ struct TweetTimeline: View {
             }
             Spacer()
         }
-        .padding()
+        .padding(.vertical)
     }
 }
 
-struct TweetTimeline_Previews: PreviewProvider {
+ struct TweetTimeline_Previews: PreviewProvider {
     static var previews: some View {
-        TweetTimeline()
+        TweetTimeline(postData: FetchedPostData())
     }
-}
+ }

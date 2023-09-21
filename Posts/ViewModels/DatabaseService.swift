@@ -18,37 +18,53 @@ struct PublicMetrics: Codable, Hashable {
 }
 
 struct FetchedPostData: Codable, Hashable {
-let authorHandle: String
-let authorName: String
-let authorVerified: Bool
-let datePosted: String
-let media: String?
-let peopleLiked: [String: String]
-let publicMetrics: PublicMetrics
-let text: String
+    let authorHandle: String
+    let authorName: String
+    let authorVerified: Bool
+    let datePosted: String
+    let media: String?
+    let pfpLink: String
+    let peopleLiked: [String: String]
+    let publicMetrics: PublicMetrics
+    let text: String
+    let uid: String
 
-init(child: DataSnapshot) {
-    let childValue = child.value as? [String: Any] ?? [:]
-    self.authorHandle = childValue["authorHandle"] as? String ?? ""
-    self.authorName = childValue["authorName"] as? String ?? ""
-    self.authorVerified = childValue["authorVerified"] as? Bool ?? false
-    self.datePosted = childValue["datePosted"] as? String ?? ""
-    self.media = childValue["media"] as? String
-    self.peopleLiked = childValue["peopleLiked"] as? [String: String] ?? [:]
+    init(child: DataSnapshot) {
+        let childValue = child.value as? [String: Any] ?? [:]
+        self.authorHandle = childValue["authorHandle"] as? String ?? ""
+        self.authorName = childValue["authorName"] as? String ?? ""
+        self.authorVerified = childValue["authorVerified"] as? Bool ?? false
+        self.datePosted = childValue["datePosted"] as? String ?? ""
+        self.media = childValue["media"] as? String? ?? nil
+        self.pfpLink = childValue["pfpLink"] as? String ?? ""
+        self.peopleLiked = childValue["peopleLiked"] as? [String: String] ?? [:]
 
-    if let publicMetricsDict = childValue["publicMetrics"] as? [String: Any] {
-        self.publicMetrics = PublicMetrics(from: publicMetricsDict)
-    } else {
-        self.publicMetrics = PublicMetrics(from: [
-            "likeCount": 0,
-            "replyCount": 0,
-            "retweetCount": 0
-            ]
-        )
+        if let publicMetricsDict = childValue["publicMetrics"] as? [String: Any] {
+            self.publicMetrics = PublicMetrics(from: publicMetricsDict)
+        } else {
+            self.publicMetrics = PublicMetrics(from: [
+                "likeCount": 0,
+                "replyCount": 0,
+                "retweetCount": 0
+                ]
+            )
+        }
+        self.text = childValue["text"] as? String ?? ""
+        self.uid = childValue["uid"] as? String ?? ""
     }
 
-    self.text = childValue["text"] as? String ?? ""
-}
+    init() {
+            self.authorHandle = "@test"
+            self.authorName = "test"
+            self.authorVerified = false
+            self.datePosted = "2023-09-09T12:34:56Z"
+            self.media = nil
+            self.pfpLink = "https://images.pexels.com/photos/5792641/pexels-photo-5792641.jpeg"
+            self.peopleLiked = [:]
+            self.publicMetrics = PublicMetrics(from: ["likeCount": 10, "replyCount": 5, "retweetCount": 20])
+            self.text = "Sample Text"
+            self.uid = "uiduiduiduid1234"
+    }
 }
 
 struct PostData: Encodable {
@@ -102,24 +118,19 @@ class DatabaseService: ObservableObject {
             completion(dataSnapshot)
             }
         )
-//        dbref.child("posts").observeSingleEvent(of: .childAdded, with: { (dataSnapshot) -> Void in
-//            completion(dataSnapshot)
-//            }
-//        )
-
-//        var post = dbref.child("posts").child("-NeNDvgTJPvuvXCnb_8y")
-//        print("----\(post)")
     }
 
     func checkForUser(uid: String) async throws -> UserData? {
         let snapshot = try await self.dbref.child("profiles").child(uid).getData()
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
 
         if snapshot.value != nil {
             print("snapshot exists")
             if let value = snapshot.value as? [String: Any] {
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: value)
-                    let userData = try JSONDecoder().decode(UserData.self, from: jsonData)
+                    let userData = try decoder.decode(UserData.self, from: jsonData)
                     return userData
                 } catch {
                     throw error

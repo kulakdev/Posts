@@ -25,14 +25,21 @@ struct ContentView: View {
                             .font(.caption)
                             .background(.red)
                             .foregroundColor(.white)
-                        TweetBio(userData: userdata)
+                        TweetBio(userData: userdata).padding(.bottom, 10.0)
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")
                     }
-                    ForEach(databaseViewModel.posts, id: \.self) { post in
-                        Text("Text: \"\(post.text)\"")
-                        Text("\(post.publicMetrics.likeCount) Liked")
-                    }
+                    Text("Timeline")
+                        .padding(5.0)
+                        .font(.caption)
+                        .background(.red)
+                        .foregroundColor(.white)
+
+                    VStack {
+                        ForEach(databaseViewModel.posts, id: \.self) { post in
+                            TweetTimeline(postData: post)
+                        }
+                    }.border(.red)
 //                    TweetTimeline()
                     TextField("Enter your new tweet", text: $appStateManager.newTweetText)
                     Button(
