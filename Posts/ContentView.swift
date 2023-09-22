@@ -29,18 +29,7 @@ struct ContentView: View {
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")
                     }
-                    Text("Timeline")
-                        .padding(5.0)
-                        .font(.caption)
-                        .background(.red)
-                        .foregroundColor(.white)
 
-                    VStack {
-                        ForEach(databaseViewModel.posts, id: \.self) { post in
-                            TweetTimeline(postData: post)
-                        }
-                    }.border(.red)
-//                    TweetTimeline()
                     TextField("Enter your new tweet", text: $appStateManager.newTweetText)
                     Button(
                         action: {
@@ -54,6 +43,20 @@ struct ContentView: View {
                             .background(Color.blue)
                         }
                     )
+
+                    Text("Timeline")
+                        .padding(5.0)
+                        .font(.caption)
+                        .background(.red)
+                        .foregroundColor(.white)
+
+                    VStack {
+                        ForEach(databaseViewModel.reversedPosts, id: \.self) { post in
+                            TweetTimeline(postData: post)
+                                .transition(.opacity)
+                        }
+                    }.border(.red)
+
                     Button(
                         action: {
                             Task {

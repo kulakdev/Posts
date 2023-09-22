@@ -36,7 +36,9 @@ class DatabaseViewModel: ObservableObject {
         text: "\(appStateManager.newTweetText)"
     )
     @Published var posts: [FetchedPostData] = []
-
+    var reversedPosts: [FetchedPostData] {
+            return posts.reversed()
+        }
     func observePosts() {
         databaseService.observePosts { [weak self] dataSnapshot in
                 if let snapshot = dataSnapshot as DataSnapshot? {

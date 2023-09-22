@@ -109,7 +109,7 @@ struct TweetTimeline: View {
                     Spacer()
                     HStack {
                         Button {
-                            formattedTime(time: postData.datePosted)
+                            print("like")
                         } label: {
                             Image(systemName: "heart")
                             Text("\(postData.publicMetrics.likeCount)")
