@@ -25,11 +25,11 @@ struct ContentView: View {
                             .font(.caption)
                             .background(.red)
                             .foregroundColor(.white)
-                        TweetBio(userData: userdata)
+                        TweetBio(userData: userdata).padding(.bottom, 10.0)
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")
                     }
-//                    TweetTimeline()
+
                     TextField("Enter your new tweet", text: $appStateManager.newTweetText)
                     Button(
                         action: {
@@ -43,10 +43,24 @@ struct ContentView: View {
                             .background(Color.blue)
                         }
                     )
+
+                    Text("Timeline")
+                        .padding(5.0)
+                        .font(.caption)
+                        .background(.red)
+                        .foregroundColor(.white)
+
+                    VStack {
+                        ForEach(databaseViewModel.reversedPosts, id: \.self) { post in
+                            TweetTimeline(postData: post)
+                                .transition(.opacity)
+                        }
+                    }.border(.red)
+
                     Button(
                         action: {
                             Task {
-                                await databaseViewModel.checkDBForUser()
+                                await databaseViewModel.checkForUser()
                             }
                     }, label: {
                         Text("check the database")
@@ -69,11 +83,14 @@ struct ContentView: View {
                     )
                 }
                 .padding()
+                .task {
+                    await databaseViewModel.checkForUser()
+                    databaseViewModel.observePosts()
+                }
                 .onAppear {
+                    #if DEBUG
                     UIApplication.shared.isIdleTimerDisabled = true
-                    Task {
-                        await databaseViewModel.checkDBForUser()
-                    }
+                    #endif
                 }
             }
         case .didNotProvideDetails:

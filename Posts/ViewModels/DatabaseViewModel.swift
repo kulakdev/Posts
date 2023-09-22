@@ -7,6 +7,10 @@
 
 import Foundation
 import Firebase
+import FirebaseCore
+import FirebaseDatabase
+import FirebaseDatabaseSwift
+import FirebaseSharedSwift
 import Resolver
 
 class DatabaseViewModel: ObservableObject {
@@ -23,13 +27,27 @@ class DatabaseViewModel: ObservableObject {
         media: "https://plus.unsplash.com/premium_photo-1693881702158-092b00136f76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80",
         peopleLiked: [:
                      ],
-        publicMetrics: PublicMetrics(
-            likeCount: 0,
-            replyCount: 0,
-            retweetCount: 0
+        publicMetrics: PublicMetrics(from: [
+            "likeCount": 0,
+            "replyCount": 0,
+            "retweetCount": 0
+            ]
         ),
         text: "\(appStateManager.newTweetText)"
     )
+    @Published var posts: [FetchedPostData] = []
+    var reversedPosts: [FetchedPostData] {
+            return posts.reversed()
+        }
+    func observePosts() {
+        databaseService.observePosts { [weak self] dataSnapshot in
+                if let snapshot = dataSnapshot as DataSnapshot? {
+                    self?.posts.append(contentsOf: [FetchedPostData(child: snapshot)])
+                } else {
+                    print("Child is not of the expected format")
+                }
+        }
+    }
 
     func makeNewPost() async {
         do {
@@ -41,12 +59,12 @@ class DatabaseViewModel: ObservableObject {
         }
     }
 
-    func checkDBForUser() async {
+    func checkForUser() async {
         let uid = loginViewModel.authService.currentUser.uid
         print(uid)
         do {
             print("this executes")
-            appStateManager.userData = try await databaseService.checkDBForUser(uid: uid)
+            appStateManager.userData = try await databaseService.checkForUser(uid: uid)
             return
         } catch {
             print(error)

@@ -8,7 +8,7 @@ class AppStateManager: ObservableObject {
 
     var formattedCurrentDate: String {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss" // Customize the date format as needed
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ" // Customize the date format as needed
             return dateFormatter.string(from: Date())
         }
 
