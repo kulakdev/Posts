@@ -7,11 +7,16 @@
 
 import SwiftUI
 import Resolver
+import PhotosUI
 
 struct ContentView: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var viewModel: LoginViewModel
     @InjectedObject private var databaseViewModel: DatabaseViewModel
+    @InjectedObject private var storageViewModel: StorageViewModel
+    @State private var selectedPhoto: PhotosPickerItem?
+    var transferrablePhoto: Data?
+
     var body: some View {
         switch appStateManager.isLoggedIn {
         case .loggedIn:
@@ -49,6 +54,20 @@ struct ContentView: View {
                         .font(.caption)
                         .background(.red)
                         .foregroundColor(.white)
+
+                    PhotosPicker(selection: $selectedPhoto,
+                                 matching: .images, photoLibrary: .shared()) {
+                        Text("Select a photo")
+                    }
+                    Button {
+                        if selectedPhoto != nil {
+                            storageViewModel.uploadData(photo: selectedPhoto!)
+                        }
+                        print("Le button was clicked")
+
+                    } label: {
+                        Text("Upload photo to the Storage")
+                    }
 
                     VStack {
                         ForEach(databaseViewModel.reversedPosts, id: \.self) { post in

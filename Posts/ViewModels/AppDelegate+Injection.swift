@@ -6,5 +6,7 @@ extension Resolver: ResolverRegistering {
         register { DatabaseService() }.scope(.graph)
         register { DatabaseViewModel() }.scope(.application)
         register { AppStateManager() }.scope(.application)
+        register { StorageService() }.scope(.graph)
+        register { StorageViewModel() }.scope(.graph)
     }
 }
