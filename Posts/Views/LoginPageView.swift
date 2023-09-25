@@ -9,17 +9,17 @@ import SwiftUI
 import Resolver
 
 struct LoginPageView: View {
-    @InjectedObject private var viewModel: LoginViewModel
+    @InjectedObject private var loginViewModel: LoginViewModel
     var body: some View {
         ScrollView {
-            TextField("enter your email", text: $viewModel.email)
+            TextField("enter your email", text: $loginViewModel.email)
                 .padding()
-            SecureField("enter your email", text: $viewModel.password)
+            SecureField("enter your email", text: $loginViewModel.password)
                 .padding()
             Button(
                 action: {
                     Task {
-                        await viewModel.signIn()
+                        await loginViewModel.signIn()
                     }
             }, label: {
                 Text("Sign In")

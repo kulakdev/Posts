@@ -10,10 +10,6 @@ import Resolver
 
 struct ContentView: View {
     @InjectedObject private var appStateManager: AppStateManager
-    @InjectedObject private var viewModel: LoginViewModel
-    @InjectedObject private var databaseViewModel: DatabaseViewModel
-    @InjectedObject private var storageViewModel: StorageViewModel
-
     var body: some View {
         switch appStateManager.isLoggedIn {
         case .loggedIn:

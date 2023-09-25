@@ -12,14 +12,12 @@ import Resolver
 struct MainPageView: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var databaseViewModel: DatabaseViewModel
-    @InjectedObject private var viewModel: LoginViewModel
     @State private var selectedPhoto: PhotosPickerItem?
     var transferrablePhoto: Data?
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                //                    TweetDetails()
                 if appStateManager.userData != nil {
                     let userdata = appStateManager.userData!
                     Text("Profile screen")
@@ -44,31 +42,7 @@ struct MainPageView: View {
                             .transition(.opacity)
                     }
                 }.border(.red)
-                // This should be removed asap, but i'll keep it for debugging
-                Button(
-                    action: {
-                        Task {
-                            await databaseViewModel.checkForUser()
-                        }
-                    }, label: {
-                        Text("check the database")
-                            .foregroundColor(Color.white)
-                            .background(Color.red)
-                            .padding()
-                    }
-                )
-                Button(
-                    action: {
-                        Task {
-                            await viewModel.signOut()
-                        }
-                    }, label: {
-                        Text("Sign Out")
-                            .foregroundColor(Color.white)
-                            .background(Color.blue)
-                            .padding()
-                    }
-                )
+                
             }
             .padding()
             .task {
