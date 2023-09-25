@@ -34,40 +34,12 @@ struct ContentView: View {
                     } else if appStateManager.userData == nil {
                         Text("User data is nil")
                     }
-
-                    TextField("Enter your new tweet", text: $appStateManager.newTweetText)
-                    Button(
-                        action: {
-                            Task {
-                                await databaseViewModel.makeNewPost()
-                            }
-                    }, label: {
-                        Text("Make a new post on the cloud")
-                            .padding()
-                            .foregroundColor(Color.white)
-                            .background(Color.blue)
-                        }
-                    )
-
+                    TweetCreateNew(selectedPhoto: $selectedPhoto)
                     Text("Timeline")
                         .padding(5.0)
                         .font(.caption)
                         .background(.red)
                         .foregroundColor(.white)
-
-                    PhotosPicker(selection: $selectedPhoto,
-                                 matching: .images, photoLibrary: .shared()) {
-                        Text("Select a photo")
-                    }
-                    Button {
-                        if selectedPhoto != nil {
-                            storageViewModel.uploadData(photo: selectedPhoto!)
-                        }
-                        print("Le button was clicked")
-
-                    } label: {
-                        Text("Upload photo to the Storage")
-                    }
 
                     VStack {
                         ForEach(databaseViewModel.reversedPosts, id: \.self) { post in
@@ -75,7 +47,7 @@ struct ContentView: View {
                                 .transition(.opacity)
                         }
                     }.border(.red)
-
+                    // This should be removed asap, but i'll keep it for debugging
                     Button(
                         action: {
                             Task {
@@ -112,6 +84,7 @@ struct ContentView: View {
                     #endif
                 }
             }
+            .scrollDismissesKeyboard(.automatic)
         case .didNotProvideDetails:
             Text("damn daniel")
         case .notLoggedIn:

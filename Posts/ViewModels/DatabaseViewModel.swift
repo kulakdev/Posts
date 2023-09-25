@@ -58,7 +58,7 @@ class DatabaseViewModel: ObservableObject {
             loginViewModel.self.errorMessage = error.localizedDescription
         }
     }
-    
+
     func checkForUser() async {
         let uid = loginViewModel.authService.currentUser.uid
         print(uid)
