@@ -15,6 +15,7 @@ struct TweetCreateNew: View {
     @InjectedObject private var databaseViewModel: DatabaseViewModel
     @InjectedObject private var storageViewModel: StorageViewModel
     @Binding var selectedPhoto: PhotosPickerItem?
+    @State private var emptyTextWarning: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
             HStack {
@@ -53,9 +54,30 @@ struct TweetCreateNew: View {
                     .clipShape(Circle())
                     .padding([.horizontal, .bottom], 7.0)
                 VStack(alignment: .leading) {
-                    TextField("Enter your new tweet", text: $appStateManager.newTweetText)
+                    TextField(text: $appStateManager.newTweetText) {
+                        if emptyTextWarning == true {
+                            Text("Please enter your tweet first")
+                                .foregroundColor(.red)
+                        } else {
+                            Text("Enter your new tweet")
+                                .task {
+                                    emptyTextWarning = false
+                                }
+                        }
+                    }
                         .padding(.vertical, 10.0)
                         .frame(height: 100, alignment: .topLeading)
+                    if emptyTextWarning == true {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .resizable()
+                                .frame(width: 10, height: 10, alignment: .leading)
+                            Text("The text cannot be empty")
+                                .font(.footnote)
+                        }
+                        .frame(height: 12)
+                        .foregroundColor(.red)
+                    }
                     Button {
                     } label: {
                         HStack {
@@ -109,8 +131,12 @@ struct TweetCreateNew: View {
                         Spacer()
                         Button(
                             action: {
-                                Task {
-                                    await databaseViewModel.makeNewPost()
+                                if appStateManager.newTweetText != "" {
+                                    Task {
+                                        await databaseViewModel.makeNewPost()
+                                    }
+                                } else {
+                                    emptyTextWarning = true
                                 }
                             }, label: {
                                 Text("Tweet")
@@ -129,11 +155,11 @@ struct TweetCreateNew: View {
         }
         .background(colorScheme == .dark ? Color.black : Color.white)
         .cornerRadius(15)
-        .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .inset(by: 1)
-                .stroke(.blue, lineWidth: 2)
-        )
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 15)
+//                .inset(by: 1)
+//                .stroke(.blue, lineWidth: 2)
+//        )
     }
 }
 
