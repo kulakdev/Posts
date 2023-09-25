@@ -101,7 +101,6 @@ struct TweetBio: View {
             }
             .zIndex(2.0)
         }
-        .border(.red)
     }
 }
 

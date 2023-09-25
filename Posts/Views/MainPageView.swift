@@ -14,35 +14,30 @@ struct MainPageView: View {
     @InjectedObject private var databaseViewModel: DatabaseViewModel
     @State private var selectedPhoto: PhotosPickerItem?
     var transferrablePhoto: Data?
-    
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 if appStateManager.userData != nil {
                     let userdata = appStateManager.userData!
-                    Text("Profile screen")
-                        .padding(5.0)
-                        .font(.caption)
-                        .background(.red)
-                        .foregroundColor(.white)
-                    TweetBio(userData: userdata).padding(.bottom, 10.0)
+                    TweetBio(userData: userdata)
+                        .padding(.bottom, 10.0)
                 } else if appStateManager.userData == nil {
                     Text("User data is nil")
                 }
-                TweetCreateNew(selectedPhoto: $selectedPhoto)
-                Text("Timeline")
-                    .padding(5.0)
-                    .font(.caption)
-                    .background(.red)
-                    .foregroundColor(.white)
-                
                 VStack {
-                    ForEach(databaseViewModel.reversedPosts, id: \.self) { post in
-                        TweetTimeline(postData: post)
-                            .transition(.opacity)
-                    }
-                }.border(.red)
-                
+                    Spacer()
+                        .frame(height: 10)
+                    TweetCreateNew(selectedPhoto: $selectedPhoto)
+                    Spacer()
+                        .frame(height: 10)
+                }
+                .background(.gray.opacity(0.4))
+                ForEach(databaseViewModel.reversedPosts, id: \.self) { post in
+                    TweetTimeline(postData: post)
+                        .transition(.opacity)
+                }
+
             }
             .padding()
             .task {
