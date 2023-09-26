@@ -58,18 +58,19 @@ struct TweetCreateNew: View {
                         .frame(height: 12)
                         .foregroundColor(.red)
                     }
+                    HStack {
+                        Divider()
 
-                    Divider()
+                        TweetCreateNewButtons(selectedPhoto: $selectedPhoto)
+                        Spacer()
+                        // tweet button
 
-                    TweetCreateNewButtons(selectedPhoto: $selectedPhoto)
-                    Spacer()
-                    // tweet button
-
+                        TweetCreateNewTweetButton(emptyTextWarning: $emptyTextWarning)
+                    }
                 }
                 .padding(.bottom, 5.0)
             }
             .padding(.trailing)
-            TweetCreateNewTweetButton(emptyTextWarning: $emptyTextWarning)
         }
         .background(colorScheme == .dark ? Color.black : Color.white)
         .cornerRadius(15)
@@ -129,13 +130,12 @@ struct CrossButton: View {
 struct TweetCreateNewButtons: View {
     @Binding var selectedPhoto: PhotosPickerItem?
     var body: some View {
-        HStack(spacing: 15) {
+        HStack(spacing: 10) {
             PhotosPicker(selection: $selectedPhoto,
                          matching: .images, photoLibrary: .shared()) {
                 Image(systemName: "photo")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .border(.purple)
             }
             Button {
                 print("GIF button clicked")
@@ -166,6 +166,8 @@ struct TweetCreateNewButtons: View {
                 print("Calendar button clicked")
             } label: {
                 Image(systemName: "calendar.badge.clock")
+                    .resizable()
+                    .frame(width: 24, height: 24)
             }
         }
 
@@ -199,6 +201,7 @@ struct TweetCreateNew_Previews: PreviewProvider {
             TweetCreateNew(selectedPhoto: $selectedPhoto)
             Spacer()
         }
+        .padding()
         .background(.black)
     }
 }
