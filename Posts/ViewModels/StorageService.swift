@@ -13,9 +13,10 @@ import FirebaseStorage
 
 class StorageService: ObservableObject {
     let storageRef = Storage.storage().reference()
+    let randomImageUID = UUID().uuidString
 
     func uploadData(data: Data, uid: String) {
-        storageRef.child("images").child("\(uid)").putData(data, metadata: nil) { (metadata, _) in
+        storageRef.child("images/\(uid)/\(randomImageUID).jpg").putData(data, metadata: nil) { (metadata, _) in
             guard let metadata = metadata else {
                 print("STORAGE SERVICE: \(String(describing: metadata))")
                 return
@@ -23,12 +24,13 @@ class StorageService: ObservableObject {
             // Metadata contains file metadata such as size, content-type.
             let size = metadata.size
             print(size)
-            self.storageRef.child("images").child("\(uid)").downloadURL { (url, error) in
+            self.storageRef.child("images/\(uid)/\(self.randomImageUID).jpg").downloadURL { (url, error) in
                 guard let downloadURL = url else {
                     print("Uh-oh, an error occurred! \(String(describing: error))")
                   return
                 }
                 print(downloadURL)
+                return
             }
         }
     }

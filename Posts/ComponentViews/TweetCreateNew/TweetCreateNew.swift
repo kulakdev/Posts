@@ -14,7 +14,8 @@ struct TweetCreateNew: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var databaseViewModel: DatabaseViewModel
     @InjectedObject private var storageViewModel: StorageViewModel
-    @Binding var selectedPhoto: PhotosPickerItem?
+    @Binding var selectedPhoto: [PhotosPickerItem]
+    @Binding var selectedImages: [Image]
     @State private var emptyTextWarning: Bool = false
 
     var body: some View {
@@ -59,9 +60,20 @@ struct TweetCreateNew: View {
                         .foregroundColor(.red)
                     }
                     HStack {
+                        ForEach(0..<selectedImages.count, id: \.self) { photo in
+                            selectedImages[photo]
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 64, height: 64)
+                                .onTapGesture {
+                                    selectedImages.remove(at: photo)
+                                }
+                        }
+                    }
+                    HStack {
                         Divider()
 
-                        TweetCreateNewButtons(selectedPhoto: $selectedPhoto)
+                        TweetCreateNewButtonsStack(selectedPhoto: $selectedPhoto)
                         Spacer()
                         // tweet button
 
@@ -74,34 +86,24 @@ struct TweetCreateNew: View {
         }
         .background(colorScheme == .dark ? Color.black : Color.white)
         .cornerRadius(15)
+        .frame(maxHeight: 500)
+        .onChange(of: selectedPhoto) { _ in
+            Task {
+                selectedImages.removeAll()
+
+                for item in selectedPhoto {
+                    if let data = try? await item.loadTransferable(type: Data.self) {
+                        if let uiImage = UIImage(data: data) {
+                            let image = Image(uiImage: uiImage)
+                            selectedImages.append(image)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
-struct TweetCreateNewTweetButton: View {
-    @InjectedObject private var appStateManager: AppStateManager
-    @InjectedObject private var databaseViewModel: DatabaseViewModel
-    @Binding var emptyTextWarning: Bool
-    var body: some View {
-        Button(
-            action: {
-                if appStateManager.newTweetText != "" {
-                    Task {
-                        await databaseViewModel.makeNewPost()
-                    }
-                } else {
-                    emptyTextWarning = true
-                }
-            }, label: {
-                Text("Tweet")
-                    .padding(.horizontal)
-                    .padding(.vertical, 10.0)
-                    .foregroundColor(Color.white)
-                    .background(Color.blue)
-                    .cornerRadius(18)
-            }
-        )
-    }
-}
 struct TEMPProfilePicture: View {
     var body: some View {
         Image(systemName: "figure.fall.circle")
@@ -127,60 +129,13 @@ struct CrossButton: View {
     }
 }
 
-struct TweetCreateNewButtons: View {
-    @Binding var selectedPhoto: PhotosPickerItem?
-    var body: some View {
-        HStack(spacing: 10) {
-            PhotosPicker(selection: $selectedPhoto,
-                         matching: .images, photoLibrary: .shared()) {
-                Image(systemName: "photo")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            Button {
-                print("GIF button clicked")
-            } label: {
-                HStack {
-                    Text("GIF")
-                        .font(.system(size: 10))
-                        .bold()
-                        .frame(width: 24, height: 24)
-                        .border(.blue)
-                }
-            }
-            Button {
-                print("Weird ident button clicked")
-            } label: {
-                Image(systemName: "align.horizontal.left")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            Button {
-                print("Smiley button clicked")
-            } label: {
-                Image(systemName: "face.smiling")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-            Button {
-                print("Calendar button clicked")
-            } label: {
-                Image(systemName: "calendar.badge.clock")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-            }
-        }
-
-    }
-}
-
 struct DEBUGSendToStorage: View {
     @ObservedObject var storageViewModel: StorageViewModel
-    @Binding var selectedPhoto: PhotosPickerItem?
+    @Binding var selectedPhoto: [PhotosPickerItem]
     var body: some View {
         Button {
-            if selectedPhoto != nil {
-                storageViewModel.uploadData(photo: selectedPhoto!)
+            if selectedPhoto != [nil] {
+                storageViewModel.uploadData(photoArray: selectedPhoto)
             }
             print("Le button was clicked")
 
@@ -195,10 +150,11 @@ struct DEBUGSendToStorage: View {
 struct TweetCreateNew_Previews: PreviewProvider {
 
     static var previews: some View {
-        @State var selectedPhoto: PhotosPickerItem?
+        @State var selectedPhoto = [PhotosPickerItem]()
+        @State var selectedImages = [Image]()
         VStack {
             Spacer()
-            TweetCreateNew(selectedPhoto: $selectedPhoto)
+            TweetCreateNew(selectedPhoto: $selectedPhoto, selectedImages: $selectedImages)
             Spacer()
         }
         .padding()

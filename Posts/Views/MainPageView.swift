@@ -12,7 +12,8 @@ import Resolver
 struct MainPageView: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var databaseViewModel: DatabaseViewModel
-    @State private var selectedPhoto: PhotosPickerItem?
+    @State private var selectedPhoto = [PhotosPickerItem]()
+    @State private var selectedImages = [Image]()
     var transferrablePhoto: Data?
 
     var body: some View {
@@ -28,7 +29,7 @@ struct MainPageView: View {
                 VStack {
                     Spacer()
                         .frame(height: 10)
-                    TweetCreateNew(selectedPhoto: $selectedPhoto)
+                    TweetCreateNew(selectedPhoto: $selectedPhoto, selectedImages: $selectedImages)
                     Spacer()
                         .frame(height: 10)
                 }

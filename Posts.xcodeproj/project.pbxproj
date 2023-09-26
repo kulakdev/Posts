@@ -28,6 +28,8 @@
 		AFEE47BE2AC1A2F5000C1B9D /* MainPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEE47BD2AC1A2F5000C1B9D /* MainPageView.swift */; };
 		AFEE47C02AC1A3BC000C1B9D /* ProvideDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEE47BF2AC1A3BC000C1B9D /* ProvideDetailsView.swift */; };
 		AFEE47C32AC1A650000C1B9D /* MainScreenViewDebugButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEE47C22AC1A650000C1B9D /* MainScreenViewDebugButtons.swift */; };
+		AFFAB4CD2AC2BB6A009073B4 /* TweetCreateNewTweetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAB4CC2AC2BB6A009073B4 /* TweetCreateNewTweetButton.swift */; };
+		AFFAB4CF2AC2BBB7009073B4 /* TweetCreateNewButtonsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFAB4CE2AC2BBB7009073B4 /* TweetCreateNewButtonsStack.swift */; };
 		AFFFE6CB2AB2F71A00B4AB43 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6CA2AB2F71A00B4AB43 /* AuthenticationView.swift */; };
 		AFFFE6CE2AB2FEAE00B4AB43 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */; };
 		AFFFE6D12AB2FEEA00B4AB43 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = AFFFE6D02AB2FEEA00B4AB43 /* Resolver */; };
@@ -58,6 +60,8 @@
 		AFEE47BD2AC1A2F5000C1B9D /* MainPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageView.swift; sourceTree = "<group>"; };
 		AFEE47BF2AC1A3BC000C1B9D /* ProvideDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideDetailsView.swift; sourceTree = "<group>"; };
 		AFEE47C22AC1A650000C1B9D /* MainScreenViewDebugButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewDebugButtons.swift; sourceTree = "<group>"; };
+		AFFAB4CC2AC2BB6A009073B4 /* TweetCreateNewTweetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCreateNewTweetButton.swift; sourceTree = "<group>"; };
+		AFFAB4CE2AC2BBB7009073B4 /* TweetCreateNewButtonsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCreateNewButtonsStack.swift; sourceTree = "<group>"; };
 		AFFFE6CA2AB2F71A00B4AB43 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		AFFFE6CD2AB2FEAE00B4AB43 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AFFFE6D22AB2FF2D00B4AB43 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
@@ -138,8 +142,8 @@
 			children = (
 				AFEE47C12AC1A62A000C1B9D /* DebugBin */,
 				AF70E8A32AB1F35D0066F8DC /* TweetTimeline.swift */,
+				AFFAB4CB2AC2BB46009073B4 /* TweetCreateNew */,
 				AF70E8A52AB1F3960066F8DC /* TweetDetails.swift */,
-				AFD654422AC174AA00AF8EC0 /* TweetCreateNew.swift */,
 				AFFFE6E52AB86BF700B4AB43 /* TweetBio.swift */,
 				AFFFE6E82AB87AC500B4AB43 /* PlaceholderImageLoading.swift */,
 			);
@@ -163,6 +167,16 @@
 				AFEE47C22AC1A650000C1B9D /* MainScreenViewDebugButtons.swift */,
 			);
 			path = DebugBin;
+			sourceTree = "<group>";
+		};
+		AFFAB4CB2AC2BB46009073B4 /* TweetCreateNew */ = {
+			isa = PBXGroup;
+			children = (
+				AFD654422AC174AA00AF8EC0 /* TweetCreateNew.swift */,
+				AFFAB4CC2AC2BB6A009073B4 /* TweetCreateNewTweetButton.swift */,
+				AFFAB4CE2AC2BBB7009073B4 /* TweetCreateNewButtonsStack.swift */,
+			);
+			path = TweetCreateNew;
 			sourceTree = "<group>";
 		};
 		AFFFE6C92AB2F70C00B4AB43 /* Auth */ = {
@@ -312,9 +326,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFFAB4CD2AC2BB6A009073B4 /* TweetCreateNewTweetButton.swift in Sources */,
 				AF70E8A62AB1F3960066F8DC /* TweetDetails.swift in Sources */,
 				AFE7858F2ABDA6A800736F18 /* StorageViewModel.swift in Sources */,
 				AFFFE6CE2AB2FEAE00B4AB43 /* LoginViewModel.swift in Sources */,
+				AFFAB4CF2AC2BBB7009073B4 /* TweetCreateNewButtonsStack.swift in Sources */,
 				AFFFE6E62AB86BF700B4AB43 /* TweetBio.swift in Sources */,
 				AFFFE6E42AB4562600B4AB43 /* DatabaseViewModel.swift in Sources */,
 				AFFFE6D32AB2FF2D00B4AB43 /* AppDelegate+Injection.swift in Sources */,

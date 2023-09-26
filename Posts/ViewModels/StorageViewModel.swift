@@ -13,21 +13,22 @@ import PhotosUI
 class StorageViewModel: ObservableObject {
     @InjectedObject private var loginViewModel: LoginViewModel
     @InjectedObject private var storageService: StorageService
-    func uploadData(photo: PhotosPickerItem) {
+    func uploadData(photoArray: [PhotosPickerItem?]) {
         let uid = loginViewModel.authService.currentUser.uid
-
-        photo.loadTransferable(type: Data.self) { [self] result in
-            print("goes here \(result)")
-            switch result {
-            case .success(let data):
-                if data != nil {
-                    self.storageService.uploadData(data: data!, uid: uid)
-                    print("Successfully loaded transferrable")
-                } else {
-                    print("data was null")
+        for photo in photoArray {
+            photo?.loadTransferable(type: Data.self) { [self] result in
+                print("goes here \(result)")
+                switch result {
+                case .success(let data):
+                    if data != nil {
+                        self.storageService.uploadData(data: data!, uid: uid)
+                        print("Successfully loaded transferrable")
+                    } else {
+                        print("data was null")
+                    }
+                case .failure:
+                    print("Failed to load transferrable")
                 }
-            case .failure:
-                print("Failed to load transferrable")
             }
         }
     }
