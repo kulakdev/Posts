@@ -13,7 +13,9 @@ struct TweetCreateNewButtonsStack: View {
     var body: some View {
         HStack(spacing: 10) {
             PhotosPicker(selection: $selectedPhoto,
-                         matching: .images, photoLibrary: .shared()) {
+                         maxSelectionCount: 4,
+                         matching: .images,
+                         photoLibrary: .shared()) {
                 Image(systemName: "photo")
                     .resizable()
                     .frame(width: 24, height: 24)

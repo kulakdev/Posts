@@ -72,7 +72,7 @@ struct PostData: Encodable {
     let authorName: String
     let authorVerified: Bool
     let datePosted: String
-    let media: String?
+    var media: [URL?]
     let peopleLiked: [String: String]
     let publicMetrics: PublicMetrics
     let text: String

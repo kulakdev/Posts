@@ -23,7 +23,10 @@ struct TweetCreateNew: View {
             HStack {
                 CrossButton()
                 Spacer()
-                DEBUGSendToStorage(storageViewModel: storageViewModel, selectedPhoto: $selectedPhoto)
+                DEBUGSendToStorage(
+                    storageViewModel: storageViewModel,
+                    databaseViewModel: databaseViewModel,
+                    selectedPhoto: $selectedPhoto)
                 Divider()
                     .background(.black)
                     .frame(height: 2.0)
@@ -100,49 +103,6 @@ struct TweetCreateNew: View {
                     }
                 }
             }
-        }
-    }
-}
-
-struct TEMPProfilePicture: View {
-    var body: some View {
-        Image(systemName: "figure.fall.circle")
-            .resizable()
-            .frame(width: 48, height: 48)
-            .foregroundColor(Color.teal)
-            .background(Color.white)
-            .clipShape(Circle())
-            .padding([.horizontal, .bottom], 7.0)
-    }
-}
-struct CrossButton: View {
-    var body: some View {
-        Button {
-
-        } label: {
-            Image(systemName: "xmark")
-                .resizable()
-                .frame(width: 16, height: 16)
-                .padding()
-                .padding(.leading, 5.0)
-        }
-    }
-}
-
-struct DEBUGSendToStorage: View {
-    @ObservedObject var storageViewModel: StorageViewModel
-    @Binding var selectedPhoto: [PhotosPickerItem]
-    var body: some View {
-        Button {
-            if selectedPhoto != [nil] {
-                storageViewModel.uploadData(photoArray: selectedPhoto)
-            }
-            print("Le button was clicked")
-
-        } label: {
-            Text("Upload photo to the Storage")
-                .padding()
-                .border(.purple)
         }
     }
 }

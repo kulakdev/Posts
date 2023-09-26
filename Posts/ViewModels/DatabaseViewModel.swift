@@ -23,8 +23,7 @@ class DatabaseViewModel: ObservableObject {
         authorName: "\(appStateManager.userData?.username ?? "Username not initialized")",
         authorVerified: appStateManager.userData?.verified ?? false,
         datePosted: "\(appStateManager.formattedCurrentDate)",
-        // swiftlint:disable:next line_length
-        media: "",
+        media: [],
         peopleLiked: [:
                      ],
         publicMetrics: PublicMetrics(from: [
