@@ -19,7 +19,10 @@ struct DEBUGSendToStorage: View {
                     if mediaURL?.absoluteString == "" {
                     print("Media URL is broken")
                     }
-                    databaseViewModel.newPost.media.append(mediaURL!)
+                    if let mediaURL = mediaURL?.absoluteString {
+                        let newIndex = databaseViewModel.newPost.media.count
+                        databaseViewModel.newPost.media[newIndex] = mediaURL
+                    }
                 }
             }
             print("Le button was clicked")

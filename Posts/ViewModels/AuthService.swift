@@ -1,7 +1,11 @@
 import Foundation
 import FirebaseAuth
 import Resolver
-
+/// This service is responsible for authentication
+///
+/// - Parameters:
+///   - handler: reference to Auth, it was like this in the documentation so i kept it
+///
 class AuthService: ObservableObject {
     @InjectedObject var appStateManager: AppStateManager
     private var _currentUser: User?

@@ -14,7 +14,7 @@ struct PublicMetrics: Codable, Hashable {
         self.likeCount = dictionary["likeCount"] as? Int ?? 0
         self.replyCount = dictionary["replyCount"] as? Int ?? 0
         self.retweetCount = dictionary["retweetCount"] as? Int ?? 0
-     }
+    }
 }
 
 struct FetchedPostData: Codable, Hashable {
@@ -22,7 +22,7 @@ struct FetchedPostData: Codable, Hashable {
     let authorName: String
     let authorVerified: Bool
     let datePosted: String
-    let media: String?
+    let media: [String?]
     let pfpLink: String
     let peopleLiked: [String: String]
     let publicMetrics: PublicMetrics
@@ -35,7 +35,7 @@ struct FetchedPostData: Codable, Hashable {
         self.authorName = childValue["authorName"] as? String ?? ""
         self.authorVerified = childValue["authorVerified"] as? Bool ?? false
         self.datePosted = childValue["datePosted"] as? String ?? ""
-        self.media = childValue["media"] as? String? ?? nil
+        self.media = childValue["media"] as? [String?] ?? [""]
         self.pfpLink = childValue["pfpLink"] as? String ?? ""
         self.peopleLiked = childValue["peopleLiked"] as? [String: String] ?? [:]
 
@@ -46,7 +46,7 @@ struct FetchedPostData: Codable, Hashable {
                 "likeCount": 0,
                 "replyCount": 0,
                 "retweetCount": 0
-                ]
+            ]
             )
         }
         self.text = childValue["text"] as? String ?? ""
@@ -54,28 +54,43 @@ struct FetchedPostData: Codable, Hashable {
     }
 
     init() {
-            self.authorHandle = "@test"
-            self.authorName = "test"
-            self.authorVerified = false
-            self.datePosted = "2023-09-09T12:34:56Z"
-            self.media = nil
-            self.pfpLink = "https://images.pexels.com/photos/5792641/pexels-photo-5792641.jpeg"
-            self.peopleLiked = [:]
-            self.publicMetrics = PublicMetrics(from: ["likeCount": 10, "replyCount": 5, "retweetCount": 20])
-            self.text = "Sample Text"
-            self.uid = "uiduiduiduid1234"
+        self.authorHandle = "@test"
+        self.authorName = "test"
+        self.authorVerified = false
+        self.datePosted = "2023-09-09T12:34:56Z"
+        self.media = [""]
+        self.pfpLink = "https://images.pexels.com/photos/5792641/pexels-photo-5792641.jpeg"
+        self.peopleLiked = [:]
+        self.publicMetrics = PublicMetrics(from: ["likeCount": 10, "replyCount": 5, "retweetCount": 20])
+        self.text = "Sample Text"
+        self.uid = "uiduiduiduid1234"
     }
 }
 
 struct PostData: Encodable {
-    let authorHandle: String
-    let authorName: String
-    let authorVerified: Bool
-    let datePosted: String
-    var media: [URL?]
-    let peopleLiked: [String: String]
-    let publicMetrics: PublicMetrics
-    let text: String
+    var authorHandle: String
+    var authorName: String
+    var authorVerified: Bool
+    var datePosted: String
+    var media: [String?]
+    var pfpLink: String
+    var peopleLiked: [String: String]
+    var publicMetrics: PublicMetrics
+    var text: String
+    var uid: String
+
+    //    init() {
+    //            self.authorHandle = ""
+    //            self.authorName = ""
+    //            self.authorVerified = false
+    //            self.datePosted = ""
+    //            self.media = [URL(string: "")]
+    //            self.pfpLink = "https://images.pexels.com/photos/5792641/pexels-photo-5792641.jpeg"
+    //            self.peopleLiked = [:]
+    //            self.publicMetrics = PublicMetrics(from: ["likeCount": 10, "replyCount": 5, "retweetCount": 20])
+    //            self.text = "Sample Text"
+    //            self.uid = "uiduiduiduid1234"
+    //    }
 }
 
 struct UserData: Codable {
@@ -86,11 +101,11 @@ struct UserData: Codable {
     let bgLink: String
 
     init(from dictionary: [String: Any]) {
-            self.username = dictionary["username"] as? String ?? ""
-            self.handle = dictionary["handle"] as? String ?? ""
-            self.verified = dictionary["verified"] as? Bool ?? false
-            self.pfpLink = dictionary["pfpLink"] as? String ?? ""
-            self.bgLink = dictionary["bgLink"] as? String ?? ""
+        self.username = dictionary["username"] as? String ?? ""
+        self.handle = dictionary["handle"] as? String ?? ""
+        self.verified = dictionary["verified"] as? Bool ?? false
+        self.pfpLink = dictionary["pfpLink"] as? String ?? ""
+        self.bgLink = dictionary["bgLink"] as? String ?? ""
     }
 }
 
@@ -116,7 +131,7 @@ class DatabaseService: ObservableObject {
     func observePosts(completion: @escaping (DataSnapshot) -> Void) {
         dbref.child("posts").observe(.childAdded, with: { (dataSnapshot) -> Void in
             completion(dataSnapshot)
-            }
+        }
         )
     }
 

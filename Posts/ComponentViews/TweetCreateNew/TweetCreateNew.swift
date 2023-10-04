@@ -14,22 +14,14 @@ struct TweetCreateNew: View {
     @InjectedObject private var appStateManager: AppStateManager
     @InjectedObject private var databaseViewModel: DatabaseViewModel
     @InjectedObject private var storageViewModel: StorageViewModel
-    @Binding var selectedPhoto: [PhotosPickerItem]
+    @Binding var selectedPhotos: [PhotosPickerItem]
     @Binding var selectedImages: [Image]
     @State private var emptyTextWarning: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0.0) {
             HStack {
-                CrossButton()
-                Spacer()
-                DEBUGSendToStorage(
-                    storageViewModel: storageViewModel,
-                    databaseViewModel: databaseViewModel,
-                    selectedPhoto: $selectedPhoto)
-                Divider()
-                    .background(.black)
-                    .frame(height: 2.0)
+                HeaderView(selectedPhotos: $selectedPhotos)
             }
             .padding(.bottom, 10.0)
             HStack(alignment: .top) {
@@ -76,7 +68,7 @@ struct TweetCreateNew: View {
                     HStack {
                         Divider()
 
-                        TweetCreateNewButtonsStack(selectedPhoto: $selectedPhoto)
+                        TweetCreateNewButtonsStack(selectedPhoto: $selectedPhotos)
                         Spacer()
                         // tweet button
 
@@ -90,11 +82,11 @@ struct TweetCreateNew: View {
         .background(colorScheme == .dark ? Color.black : Color.white)
         .cornerRadius(15)
         .frame(maxHeight: 500)
-        .onChange(of: selectedPhoto) { _ in
+        .onChange(of: selectedPhotos) { _ in
             Task {
                 selectedImages.removeAll()
 
-                for item in selectedPhoto {
+                for item in selectedPhotos {
                     if let data = try? await item.loadTransferable(type: Data.self) {
                         if let uiImage = UIImage(data: data) {
                             let image = Image(uiImage: uiImage)
@@ -110,11 +102,11 @@ struct TweetCreateNew: View {
 struct TweetCreateNew_Previews: PreviewProvider {
 
     static var previews: some View {
-        @State var selectedPhoto = [PhotosPickerItem]()
+        @State var selectedPhotos = [PhotosPickerItem]()
         @State var selectedImages = [Image]()
         VStack {
             Spacer()
-            TweetCreateNew(selectedPhoto: $selectedPhoto, selectedImages: $selectedImages)
+            TweetCreateNew(selectedPhotos: $selectedPhotos, selectedImages: $selectedImages)
             Spacer()
         }
         .padding()

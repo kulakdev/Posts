@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlaceholderImageLoading: View {
-    @State var isRotating = 0.0
+    @State private var isRotating = 0.0
     var type: LoadingType = .background
 
     enum LoadingType {

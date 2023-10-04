@@ -29,13 +29,13 @@ struct MainPageView: View {
                 VStack {
                     Spacer()
                         .frame(height: 10)
-                    TweetCreateNew(selectedPhoto: $selectedPhoto, selectedImages: $selectedImages)
+                    TweetCreateNew(selectedPhotos: $selectedPhoto, selectedImages: $selectedImages)
                     Spacer()
                         .frame(height: 10)
                 }
                 .background(.gray.opacity(0.4))
                 ForEach(databaseViewModel.reversedPosts, id: \.self) { post in
-                    TweetTimeline(postData: post)
+                    TweetTimeline(fetchedPostData: post)
                         .transition(.opacity)
                 }
 

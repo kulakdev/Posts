@@ -24,6 +24,7 @@ class DatabaseViewModel: ObservableObject {
         authorVerified: appStateManager.userData?.verified ?? false,
         datePosted: "\(appStateManager.formattedCurrentDate)",
         media: [],
+        pfpLink: "",
         peopleLiked: [:
                      ],
         publicMetrics: PublicMetrics(from: [
@@ -32,7 +33,8 @@ class DatabaseViewModel: ObservableObject {
             "retweetCount": 0
             ]
         ),
-        text: "\(appStateManager.newTweetText)"
+        text: "\(appStateManager.newTweetText)",
+        uid: ""
     )
     @Published var posts: [FetchedPostData] = []
     var reversedPosts: [FetchedPostData] {
